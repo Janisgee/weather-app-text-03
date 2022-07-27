@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import SearchLocationDate from "./SearchLocationDate";
 import TimeForSun from "./TimeForSun";
 import Temperature from "./Temperature";
 import Forecast from "./Forecast";
+import WeatherIcon from "./WeatherIcon";
 
 export default function WeatherInfo(props) {
+  const [unit, setUnit] = useState("celsius");
   const localTimezoneOffset = new Date().getTimezoneOffset() * -60 * 1000;
 
   return (
@@ -22,15 +24,13 @@ export default function WeatherInfo(props) {
         <li className="text-capitalize">{props.weather.description}</li>
       </ul>
       <div className="row">
-        <div className="col-6 clearfix">
-          <img
-            src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png"
-            alt={props.weather.description}
-            className="weather-image float-start"
-          />
+        <div className="col-6 clearfix currentTemperature">
+          <WeatherIcon code={props.weather.icon} />
           <Temperature
             celsius={props.weather.temperature}
             fahrenheit={(props.weather.temperature * 9) / 5 + 32}
+            unit={unit}
+            setUnit={setUnit}
           />
         </div>
         <div className="col-6">
@@ -56,7 +56,12 @@ export default function WeatherInfo(props) {
           </ul>
         </div>
       </div>
-      <Forecast coordinates={props.weather.coordinates} />
+      <Forecast
+        coordinates={props.weather.coordinates}
+        code={props.weather.icon}
+        unit={unit}
+        setUnit={setUnit}
+      />
     </div>
   );
 }

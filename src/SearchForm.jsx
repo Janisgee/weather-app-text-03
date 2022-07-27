@@ -14,6 +14,7 @@ export default function SearchForm(props) {
       temperature: response.data.main.temp,
       humidity: response.data.main.humidity,
       description: response.data.weather[0].description,
+      icon: response.data.weather[0].icon,
       wind: response.data.wind.speed,
       coordinates: response.data.coord,
       date: response.data.dt * 1000,

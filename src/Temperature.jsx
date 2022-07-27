@@ -1,14 +1,13 @@
-import React, { useState } from "react";
+import React from "react";
 
 export default function Temperature(props) {
-  const [temperature, setTemperature] = useState("celsius");
   function celsiusTemperature() {
     let celsiusTemperature = Math.round(props.celsius);
     return celsiusTemperature;
   }
   function convertToCelsius(event) {
     event.preventDefault();
-    setTemperature("celsius");
+    props.setUnit("celsius");
   }
 
   function fahrenheitTemperature() {
@@ -17,10 +16,10 @@ export default function Temperature(props) {
   }
   function convertTofahrenheit(event) {
     event.preventDefault();
-    setTemperature("fahrenheit");
+    props.setUnit("fahrenheit");
   }
 
-  if (temperature === "celsius") {
+  if (props.unit === "celsius") {
     return (
       <span>
         <span className="temperature float-start">{celsiusTemperature()}</span>{" "}
